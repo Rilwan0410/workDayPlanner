@@ -17,7 +17,6 @@ $(
       let planner =
         localStorage.getItem("planner") != null ? savedInLocalStorage : [];
       planner.push({ timeblock, plan });
-      console.log(planner);
 
       localStorage.setItem("planner", JSON.stringify(planner));
     }
@@ -122,7 +121,6 @@ $(
       let text = each.children(".description");
 
       each.children(".saveBtn").on("click", () => {
-        console.log(text.val());
         savePlan(each.data().timeblock, text.val());
       });
     });
