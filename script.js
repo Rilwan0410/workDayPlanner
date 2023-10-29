@@ -1,12 +1,10 @@
-
-
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
 $(
   function () {
-    const today = dayjs().format("dddd, MMMM Do");
+    const today = dayjs().format("dddd, MMMM D");
     const currentMilitaryHour = Number(dayjs().format("H"));
     let container = $(".container-lg");
     let timeStamp = "AM";
@@ -14,8 +12,9 @@ $(
     $("#currentDay").text(today);
 
     function savePlan(timeblock, plan) {
-      let savedInLocalStorage = JSON.parse(localStorage.getItem('planner'))
-      let planner = localStorage.getItem("planner") != null ? savedInLocalStorage : [];
+      let savedInLocalStorage = JSON.parse(localStorage.getItem("planner"));
+      let planner =
+        localStorage.getItem("planner") != null ? savedInLocalStorage : [];
       planner.push({ timeblock, plan });
       console.log(planner);
 
@@ -102,28 +101,14 @@ $(
       }
     }
 
-    container.children().each((e, plan) => {
-
-     
-
-
-      // console.log()
-    });
-
-if(JSON.parse(localStorage.getItem('planner'))){
-  JSON.parse(localStorage.getItem("planner")).forEach((plan) => {
-
-    container
-      .children(`[data-timeblock =${plan.timeblock} ]`)
-      .children(".description")
-      .val(plan.plan)
-  
-
-});
-
-}
-
- 
+    if (JSON.parse(localStorage.getItem("planner"))) {
+      JSON.parse(localStorage.getItem("planner")).forEach((plan) => {
+        container
+          .children(`[data-timeblock =${plan.timeblock} ]`)
+          .children(".description")
+          .val(plan.plan);
+      });
+    }
 
     container.children().each((e) => {
       let each = $(`#hour-${e + 1}`);
@@ -133,12 +118,9 @@ if(JSON.parse(localStorage.getItem('planner'))){
       each.children(".saveBtn").on("click", () => {
         console.log(text.val());
         savePlan(each.data().timeblock, text.val());
-        // savePlan(eac)
       });
 
-      // console.log(each.contents())
-      // savePlan(each.data().timeblock, each.text());
-      // });
+  
     });
   }
 
