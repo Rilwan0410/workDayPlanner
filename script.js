@@ -9,6 +9,7 @@ $(
     let container = $(".container-lg");
     let timeStamp = "AM";
 
+    // current day 
     $("#currentDay").text(today);
 
     function savePlan(timeblock, plan) {
@@ -21,6 +22,7 @@ $(
       localStorage.setItem("planner", JSON.stringify(planner));
     }
 
+    // looping through the hours of 9-5 (in this case 9-17 taking into account miliary time) and appending the HTML for the planner input
     for (let i = 9; i <= 17; i++) {
       if (i > 12) {
         if (i === currentMilitaryHour) {
@@ -101,6 +103,7 @@ $(
       }
     }
 
+    // If the planner already exists in localStorage, loop through it and add it to the textarea
     if (JSON.parse(localStorage.getItem("planner"))) {
       JSON.parse(localStorage.getItem("planner")).forEach((plan) => {
         container
@@ -110,17 +113,15 @@ $(
       });
     }
 
+    // looping through the children of the container once its aleady been added to the HTML and adding the function to save the input once the .saveBtn has been pressed
     container.children().each((e) => {
       let each = $(`#hour-${e + 1}`);
-      let saveBtn = each.children(".saveBtn");
       let text = each.children(".description");
 
       each.children(".saveBtn").on("click", () => {
         console.log(text.val());
         savePlan(each.data().timeblock, text.val());
       });
-
-  
     });
   }
 
