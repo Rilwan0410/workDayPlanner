@@ -9,7 +9,7 @@ $(
     let container = $(".container-lg");
     let timeStamp = "AM";
 
-    // current day 
+    // current day
     $("#currentDay").text(today);
 
     function savePlan(timeblock, plan) {
@@ -24,8 +24,10 @@ $(
 
     // looping through the hours of 9-5 (in this case 9-17 taking into account miliary time) and appending the HTML for the planner input
     for (let i = 9; i <= 17; i++) {
+      if (i >= 12) {
+        timeStamp = "PM";
+      }
       if (i > 12) {
-        timeStamp = "PM"
         if (i === currentMilitaryHour) {
           container.append(` 
           <div id="hour-${i - 8}" data-timeBlock = ${
